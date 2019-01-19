@@ -45,13 +45,16 @@ export class PaintGatewayClient {
 
   createPaintArtworkTask(
     request: CreatePaintArtworkTask,
-    metadata: grpcWeb.Metadata) {
-    return this.client_.serverStreaming(
+    metadata: grpcWeb.Metadata,
+    callback: (err: grpcWeb.Error,
+               response: CommandReceived) => void) {
+    return this.client_.rpcCall(
       this.hostname_ +
         '/name.jchein.portfolio.random_art.PaintGateway/createPaintArtworkTask',
       request,
       metadata,
-      this.methodInfocreatePaintArtworkTask);
+      this.methodInfocreatePaintArtworkTask,
+      callback);
   }
 
   methodInfocancelPaintArtworkTask = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -64,13 +67,16 @@ export class PaintGatewayClient {
 
   cancelPaintArtworkTask(
     request: CancelPaintArtworkTask,
-    metadata: grpcWeb.Metadata) {
-    return this.client_.serverStreaming(
+    metadata: grpcWeb.Metadata,
+    callback: (err: grpcWeb.Error,
+               response: CommandReceived) => void) {
+    return this.client_.rpcCall(
       this.hostname_ +
         '/name.jchein.portfolio.random_art.PaintGateway/cancelPaintArtworkTask',
       request,
       metadata,
-      this.methodInfocancelPaintArtworkTask);
+      this.methodInfocancelPaintArtworkTask,
+      callback);
   }
 
 }
