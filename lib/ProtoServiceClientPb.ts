@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for name.jchein.portfolio.random_art
+ * @fileoverview gRPC-Web generated client stub for name.jchein.portfolio.services.paint.gateway
  * @enhanceable
  * @public
  */
@@ -9,13 +9,11 @@
 
 import * as grpcWeb from 'grpc-web';
 import {
+  ArtworkTaskProgressEvent,
   CancelPaintArtworkTask,
-  CommandReceived,
   CreatePaintArtworkTask,
-  InformationUpdate,
-  PercentDoneUpdate,
-  RetryableErrorUpdate,
-  UpdatePaintArtworkTask} from './proto_pb';
+  MonitorPaintArtworkTask,
+  RequestReceived} from './proto_pb';
 
 export class PaintGatewayClient {
   client_: grpcWeb.AbstractClientBase;
@@ -35,47 +33,107 @@ export class PaintGatewayClient {
     this.options_ = options;
   }
 
-  methodInfocreatePaintArtworkTask = new grpcWeb.AbstractClientBase.MethodInfo(
-    CommandReceived,
+  methodInfocreate = new grpcWeb.AbstractClientBase.MethodInfo(
+    RequestReceived,
     (request: CreatePaintArtworkTask) => {
       return request.serializeBinary();
     },
-    CommandReceived.deserializeBinary
+    RequestReceived.deserializeBinary
   );
 
-  createPaintArtworkTask(
+  create(
     request: CreatePaintArtworkTask,
     metadata: grpcWeb.Metadata,
     callback: (err: grpcWeb.Error,
-               response: CommandReceived) => void) {
+               response: RequestReceived) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
-        '/name.jchein.portfolio.random_art.PaintGateway/createPaintArtworkTask',
+        '/name.jchein.portfolio.services.paint.gateway.PaintGateway/create',
       request,
       metadata,
-      this.methodInfocreatePaintArtworkTask,
+      this.methodInfocreate,
       callback);
   }
 
-  methodInfocancelPaintArtworkTask = new grpcWeb.AbstractClientBase.MethodInfo(
-    CommandReceived,
+  methodInfocreateAndMonitor = new grpcWeb.AbstractClientBase.MethodInfo(
+    ArtworkTaskProgressEvent,
+    (request: CreatePaintArtworkTask) => {
+      return request.serializeBinary();
+    },
+    ArtworkTaskProgressEvent.deserializeBinary
+  );
+
+  createAndMonitor(
+    request: CreatePaintArtworkTask,
+    metadata: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/name.jchein.portfolio.services.paint.gateway.PaintGateway/createAndMonitor',
+      request,
+      metadata,
+      this.methodInfocreateAndMonitor);
+  }
+
+  methodInfomonitor = new grpcWeb.AbstractClientBase.MethodInfo(
+    ArtworkTaskProgressEvent,
+    (request: MonitorPaintArtworkTask) => {
+      return request.serializeBinary();
+    },
+    ArtworkTaskProgressEvent.deserializeBinary
+  );
+
+  monitor(
+    request: MonitorPaintArtworkTask,
+    metadata: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/name.jchein.portfolio.services.paint.gateway.PaintGateway/monitor',
+      request,
+      metadata,
+      this.methodInfomonitor);
+  }
+
+  methodInfoacknowledge = new grpcWeb.AbstractClientBase.MethodInfo(
+    RequestReceived,
     (request: CancelPaintArtworkTask) => {
       return request.serializeBinary();
     },
-    CommandReceived.deserializeBinary
+    RequestReceived.deserializeBinary
   );
 
-  cancelPaintArtworkTask(
+  acknowledge(
     request: CancelPaintArtworkTask,
     metadata: grpcWeb.Metadata,
     callback: (err: grpcWeb.Error,
-               response: CommandReceived) => void) {
+               response: RequestReceived) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
-        '/name.jchein.portfolio.random_art.PaintGateway/cancelPaintArtworkTask',
+        '/name.jchein.portfolio.services.paint.gateway.PaintGateway/acknowledge',
       request,
       metadata,
-      this.methodInfocancelPaintArtworkTask,
+      this.methodInfoacknowledge,
+      callback);
+  }
+
+  methodInfocancel = new grpcWeb.AbstractClientBase.MethodInfo(
+    RequestReceived,
+    (request: CancelPaintArtworkTask) => {
+      return request.serializeBinary();
+    },
+    RequestReceived.deserializeBinary
+  );
+
+  cancel(
+    request: CancelPaintArtworkTask,
+    metadata: grpcWeb.Metadata,
+    callback: (err: grpcWeb.Error,
+               response: RequestReceived) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/name.jchein.portfolio.services.paint.gateway.PaintGateway/cancel',
+      request,
+      metadata,
+      this.methodInfocancel,
       callback);
   }
 

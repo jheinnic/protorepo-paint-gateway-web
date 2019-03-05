@@ -1,9 +1,33 @@
+export class ArtworkTaskProgressEvent {
+  constructor ();
+  getId(): string;
+  setId(a: string): void;
+  getTaskstate(): TaskStateType;
+  setTaskstate(a: TaskStateType): void;
+  getPercentpainted(): number;
+  setPercentpainted(a: number): void;
+  getMessage(): string;
+  setMessage(a: string): void;
+  toObject(): ArtworkTaskProgressEvent.AsObject;
+  serializeBinary(): Uint8Array;
+  static deserializeBinary: (bytes: {}) => ArtworkTaskProgressEvent;
+}
+
+export namespace ArtworkTaskProgressEvent {
+  export type AsObject = {
+    Id: string;
+    Taskstate: TaskStateType;
+    Percentpainted: number;
+    Message: string;
+  }
+}
+
 export class CancelPaintArtworkTask {
   constructor ();
   getId(): string;
   setId(a: string): void;
-  getSeq(): number;
-  setSeq(a: number): void;
+  getAutoack(): boolean;
+  setAutoack(a: boolean): void;
   toObject(): CancelPaintArtworkTask.AsObject;
   serializeBinary(): Uint8Array;
   static deserializeBinary: (bytes: {}) => CancelPaintArtworkTask;
@@ -12,38 +36,12 @@ export class CancelPaintArtworkTask {
 export namespace CancelPaintArtworkTask {
   export type AsObject = {
     Id: string;
-    Seq: number;
-  }
-}
-
-export class CommandReceived {
-  constructor ();
-  getId(): string;
-  setId(a: string): void;
-  getSeq(): number;
-  setSeq(a: number): void;
-  getType(): string;
-  setType(a: string): void;
-  getAccepted(): boolean;
-  setAccepted(a: boolean): void;
-  toObject(): CommandReceived.AsObject;
-  serializeBinary(): Uint8Array;
-  static deserializeBinary: (bytes: {}) => CommandReceived;
-}
-
-export namespace CommandReceived {
-  export type AsObject = {
-    Id: string;
-    Seq: number;
-    Type: string;
-    Accepted: boolean;
+    Autoack: boolean;
   }
 }
 
 export class CreatePaintArtworkTask {
   constructor ();
-  getId(): string;
-  setId(a: string): void;
   getSeedprefix(): string;
   setSeedprefix(a: string): void;
   getSeedsuffix(): string;
@@ -52,8 +50,10 @@ export class CreatePaintArtworkTask {
   setNewmodel(a: boolean): void;
   getRenderpolicy(): string;
   setRenderpolicy(a: string): void;
-  getStagingpolicy(): string;
-  setStagingpolicy(a: string): void;
+  getStoragepolicy(): string;
+  setStoragepolicy(a: string): void;
+  getAutoack(): boolean;
+  setAutoack(a: boolean): void;
   toObject(): CreatePaintArtworkTask.AsObject;
   serializeBinary(): Uint8Array;
   static deserializeBinary: (bytes: {}) => CreatePaintArtworkTask;
@@ -61,93 +61,45 @@ export class CreatePaintArtworkTask {
 
 export namespace CreatePaintArtworkTask {
   export type AsObject = {
-    Id: string;
     Seedprefix: string;
     Seedsuffix: string;
     Newmodel: boolean;
     Renderpolicy: string;
-    Stagingpolicy: string;
+    Storagepolicy: string;
+    Autoack: boolean;
   }
 }
 
-export class InformationUpdate {
-  constructor ();
-  getMessage(): string;
-  setMessage(a: string): void;
-  toObject(): InformationUpdate.AsObject;
-  serializeBinary(): Uint8Array;
-  static deserializeBinary: (bytes: {}) => InformationUpdate;
-}
-
-export namespace InformationUpdate {
-  export type AsObject = {
-    Message: string;
-  }
-}
-
-export class PercentDoneUpdate {
-  constructor ();
-  getMessage(): string;
-  setMessage(a: string): void;
-  getPercentdone(): number;
-  setPercentdone(a: number): void;
-  toObject(): PercentDoneUpdate.AsObject;
-  serializeBinary(): Uint8Array;
-  static deserializeBinary: (bytes: {}) => PercentDoneUpdate;
-}
-
-export namespace PercentDoneUpdate {
-  export type AsObject = {
-    Message: string;
-    Percentdone: number;
-  }
-}
-
-export class RetryableErrorUpdate {
-  constructor ();
-  getMessage(): string;
-  setMessage(a: string): void;
-  getRetryin(): number;
-  setRetryin(a: number): void;
-  toObject(): RetryableErrorUpdate.AsObject;
-  serializeBinary(): Uint8Array;
-  static deserializeBinary: (bytes: {}) => RetryableErrorUpdate;
-}
-
-export namespace RetryableErrorUpdate {
-  export type AsObject = {
-    Message: string;
-    Retryin: number;
-  }
-}
-
-export class UpdatePaintArtworkTask {
+export class MonitorPaintArtworkTask {
   constructor ();
   getId(): string;
   setId(a: string): void;
-  getSeq(): number;
-  setSeq(a: number): void;
-  getUpdatetype(): UpdateType;
-  setUpdatetype(a: UpdateType): void;
-  getPercentdonebody(): PercentDoneUpdate;
-  setPercentdonebody(a: PercentDoneUpdate): void;
-  getInformationbody(): InformationUpdate;
-  setInformationbody(a: InformationUpdate): void;
-  getRetryerrorbody(): RetryableErrorUpdate;
-  setRetryerrorbody(a: RetryableErrorUpdate): void;
-  toObject(): UpdatePaintArtworkTask.AsObject;
+  getAutoack(): boolean;
+  setAutoack(a: boolean): void;
+  toObject(): MonitorPaintArtworkTask.AsObject;
   serializeBinary(): Uint8Array;
-  static deserializeBinary: (bytes: {}) => UpdatePaintArtworkTask;
+  static deserializeBinary: (bytes: {}) => MonitorPaintArtworkTask;
 }
 
-export namespace UpdatePaintArtworkTask {
+export namespace MonitorPaintArtworkTask {
   export type AsObject = {
     Id: string;
-    Seq: number;
-    Updatetype: UpdateType;
-    Percentdonebody: PercentDoneUpdate;
-    Informationbody: InformationUpdate;
-    Retryerrorbody: RetryableErrorUpdate;
+    Autoack: boolean;
+  }
+}
+
+export class RequestReceived {
+  constructor ();
+  getId(): string;
+  setId(a: string): void;
+  toObject(): RequestReceived.AsObject;
+  serializeBinary(): Uint8Array;
+  static deserializeBinary: (bytes: {}) => RequestReceived;
+}
+
+export namespace RequestReceived {
+  export type AsObject = {
+    Id: string;
   }
 }
 
